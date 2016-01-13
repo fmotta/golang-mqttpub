@@ -8,4 +8,6 @@ mqttpub: golang-mqttpub
 golang-mqttpub: main.go
 	$(GO) build 
 
+clean:
+	rm -f mqttpub
 	
