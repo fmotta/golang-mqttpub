@@ -11,14 +11,15 @@ import (
     "github.com/yosssi/gmq/mqtt/client"
 )
 
-var host = flag.String("host", "192.168.1.109:1883", "hostname of broker")
+//var host = flag.String("host", "192.168.1.109:1883", "hostname of broker")
+var host = flag.String("host", "localhost", "hostname of broker")
 //var user = flag.String("user", "", "username")
 //var pass = flag.String("pass", "", "password")
 var retain = flag.Bool("retain", false, "retain message?")
 var wait = flag.Bool("wait", false, "stay connected after publishing?")
 var message = flag.String("message", "", "message")
 var topic = flag.String("topic", "", "topic")
-var port = flag.String("port", "", "port")
+var port = flag.String("port", "1883", "port")
 var qos = flag.String("qos", "", "qos")
 
 
