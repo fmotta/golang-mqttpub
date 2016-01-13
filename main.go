@@ -19,12 +19,28 @@ var wait = flag.Bool("wait", false, "stay connected after publishing?")
 var message = flag.String("message", "", "message")
 var topic = flag.String("topic", "", "topic")
 var port = flag.String("port", "1883", "port")
-var qos = flag.String("qos", "", "qos")
+//var qos = flag.String("qos", string(mqtt.QoS0)[:1], "qos")
+//var qos = flag.String("qos", "0", "qos") // something quirky with default of "0" results in no default
+var qos = flag.String("qos", "00", "qos")
 
+var Usage = func() {
+        fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
+        flag.PrintDefaults()
+}
 
 func main() {
     flag.Parse()
 
+    if (flag.NFlag() < 2) {
+    	fmt.Println("Too few arguments")
+	Usage()
+	os.Exit(0)
+    }
+    if ((*message == "") || (*topic == "")) {
+    	fmt.Println("Need a topic and message to publish")
+	Usage()
+	os.Exit(0)
+    }
 
     fmt.Println("topic: ", *topic, "\tmessage: ", *message)
 
