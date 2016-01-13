@@ -11,7 +11,6 @@ import (
     "github.com/yosssi/gmq/mqtt/client"
 )
 
-//var host = flag.String("host", "192.168.1.109:1883", "hostname of broker")
 var host = flag.String("host", "localhost", "hostname of broker")
 //var user = flag.String("user", "", "username")
 //var pass = flag.String("pass", "", "password")
@@ -75,7 +74,6 @@ func main() {
     }
 
     err = cli.Publish(&client.PublishOptions{
-        //QoS:       mqtt.QoS0,
         QoS:       mQoS,
         TopicName: []byte(*topic),
         Message:   []byte(*message),
