@@ -1,4 +1,5 @@
-GO=go
+GO = go
+PREFIX := /usr/local/bin
 
 all: mqttpub
 
@@ -8,6 +9,8 @@ mqttpub: golang-mqttpub
 golang-mqttpub: main.go
 	$(GO) build 
 
+install: mqttpub
+	cp $^ ${PREFIX}/.
 clean:
 	rm -f mqttpub
 	
