@@ -6,6 +6,7 @@ import (
     "os/signal"
     "flag"
     "strings"
+    "time"
 
     "github.com/yosssi/gmq/mqtt"
     "github.com/yosssi/gmq/mqtt/client"
@@ -22,6 +23,7 @@ var port = flag.String("port", "1883", "port")
 //var qos = flag.String("qos", string(mqtt.QoS0)[:1], "qos")
 //var qos = flag.String("qos", "0", "qos") // something quirky with default of "0" results in no default
 var qos = flag.String("qos", "00", "qos")
+var delay = flag.Int64("delay", 5, "delay")
 
 var Usage = func() {
         fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
@@ -32,12 +34,12 @@ func main() {
     flag.Parse()
 
     if (flag.NFlag() < 2) {
-    	fmt.Println("Too few arguments")
+	fmt.Println("Too few arguments")
 	Usage()
 	os.Exit(0)
     }
     if ((*message == "") || (*topic == "")) {
-    	fmt.Println("Need a topic and message to publish")
+	fmt.Println("Need a topic and message to publish")
 	Usage()
 	os.Exit(0)
     }
@@ -82,8 +84,8 @@ func main() {
         Network:  "tcp",
         Address:  address,
         ClientID: []byte("example-client"),
-	CONNACKTimeout:  30,
-	KeepAlive:       50,
+//	CONNACKTimeout:  30,
+//	KeepAlive:       50,
     })
     if err != nil {
         panic(err)
@@ -101,7 +103,8 @@ func main() {
 
     // Wait for receiving a signal.
     // I cannot figure out why publish does not work without this command
-    <-sigc
+   // <-sigc
+    time.Sleep(time.Duration(*delay) * time.Millisecond)
 
     // Disconnect the Network Connection.
     if err := cli.Disconnect(); err != nil {

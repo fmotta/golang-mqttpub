@@ -1,4 +1,5 @@
 GO = go
+GMESSAGE := "Default Message"
 PREFIX := /usr/local/bin
 
 all: mqttpub
@@ -14,3 +15,7 @@ install: mqttpub
 clean:
 	rm -f mqttpub
 	
+push:
+	git commit -m ${GMESSAGE}
+	git status | grep 'modified:' | awk 'BEGIN{FS=":";}{print $2;}' | xargs git add
+	git push origin master
